@@ -9,9 +9,21 @@ import (
 	"strings"
 
 	"github.com/PuerkitoBio/goquery"
+	"github.com/gdamore/tcell/v2"
+	"github.com/rivo/tview"
 )
 
+var text = tview.NewTextView()
+var app = tview.NewApplication()
+
 func main() {
+
+	app.SetInputCapture(func(event *tcell.EventKey) *tcell.EventKey {
+		if event.Rune() == 'q' || event.Rune() == 'Q' {
+			app.Stop()
+		}
+		return event
+	})
 
 	q := strings.Join(os.Args[1:], " ")
 	a := url.PathEscape(q)
@@ -21,20 +33,24 @@ func main() {
 		var b string
 		fmt.Scan(&b)
 		a := url.PathEscape(b)
-		translate(a)
+		text.SetText(vet(a)).SetDynamicColors(true).SetBorder(true).SetTitle("Press q to quit")
+		app.SetRoot(text, true).Run()
 	} else if os.Args[1] == "--help" || os.Args[1] == "-h" {
 		help()
 	} else {
-		translate(a)
+		text.SetText(vet(a)).SetDynamicColors(true)
+		app.SetRoot(text, true).Run()
+
 	}
 
 }
 
-func translate(a string) {
+func vet(a string) string {
 	req, err := http.NewRequest("GET", "https://tureng.com/en/turkish-english/"+a, nil)
 	if err != nil {
 		log.Fatal(err)
 	}
+
 	req.Header.Set("User-Agent", "Mozilla/5.0")
 
 	client := &http.Client{}
@@ -49,14 +65,18 @@ func translate(a string) {
 		log.Fatal(err)
 	}
 
+	var results []string
+
 	doc.Find("tr.tureng-manual-stripe-even, tr.tureng-manual-stripe-odd").Each(func(i int, s *goquery.Selection) {
 		english := s.Find("td.en.tm a").Text()
 		turkish := s.Find("td.tr.ts a").Text()
 
 		if english != "" && turkish != "" {
-			fmt.Printf("%d: %s -> %s\n", i+1, english, turkish)
+			results = append(results, fmt.Sprintf("%d: %s -> %s\n", i+1, english, turkish))
 		}
 	})
+
+	return strings.Join(results, "\n")
 }
 
 func help() {

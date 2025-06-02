@@ -14,4 +14,4 @@ you can copy to bin dir
 ### TODO:
 
 - [x] Add Translate
-- [ ] Show results in a box
+- [x] Show results in a box
