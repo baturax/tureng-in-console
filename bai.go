@@ -32,11 +32,15 @@ func main() {
 		fmt.Println("Write a word:")
 		var b string
 		fmt.Scan(&b)
+		b = strings.Join(os.Args[1:], " ")
 		a := url.PathEscape(b)
+
 		text.SetText(vet(a)).SetDynamicColors(true).SetBorder(true).SetTitle("Press q to quit")
 		app.SetRoot(text, true).Run()
+
 	} else if os.Args[1] == "--help" || os.Args[1] == "-h" {
 		help()
+
 	} else {
 		text.SetText(vet(a)).SetDynamicColors(true)
 		app.SetRoot(text, true).Run()
