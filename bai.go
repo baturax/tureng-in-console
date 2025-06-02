@@ -17,7 +17,11 @@ func main() {
 	a := url.PathEscape(q)
 
 	if len(os.Args) < 2 {
-		help()
+		fmt.Println("Write a word:")
+		var b string
+		fmt.Scan(&b)
+		a := url.PathEscape(b)
+		translate(a)
 	} else if os.Args[1] == "--help" || os.Args[1] == "-h" {
 		help()
 	} else {
