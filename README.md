@@ -9,7 +9,7 @@ go build .
 you can copy to bin dir
 
 ### Preview:
-<img src="./assets/preview.mp4"/>
+https://github.com/user-attachments/assets/51a42dca-7872-4b21-afa4-d342f2a3311f
 
 ### TODO:
 
