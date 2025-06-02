@@ -13,13 +13,20 @@ import (
 
 func main() {
 
-	if len(os.Args) <= 1 {
-		fmt.Println("--help for help")
-	}
-
 	q := strings.Join(os.Args[1:], " ")
 	a := url.PathEscape(q)
 
+	if len(os.Args) < 2 {
+		help()
+	} else if os.Args[1] == "--help" || os.Args[1] == "-h" {
+		help()
+	} else {
+		translate(a)
+	}
+
+}
+
+func translate(a string) {
 	req, err := http.NewRequest("GET", "https://tureng.com/en/turkish-english/"+a, nil)
 	if err != nil {
 		log.Fatal(err)
@@ -46,4 +53,12 @@ func main() {
 			fmt.Printf("%d: %s -> %s\n", i+1, english, turkish)
 		}
 	})
+}
+
+func help() {
+	fmt.Println(`
+-h, --help
+	for help
+
+Just write the word and over`)
 }
