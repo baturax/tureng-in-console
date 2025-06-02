@@ -13,6 +13,10 @@ import (
 
 func main() {
 
+	if len(os.Args) <= 1 {
+		fmt.Println("--help for help")
+	}
+
 	q := strings.Join(os.Args[1:], " ")
 	a := url.PathEscape(q)
 
