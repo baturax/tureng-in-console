@@ -9,7 +9,7 @@ go build .
 you can copy to bin dir
 
 ### Preview:
-<img src="./assets/preview.png"/>
+<img src="./assets/preview.mp4"/>
 
 ### TODO:
 
