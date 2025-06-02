@@ -1,6 +1,7 @@
 package main
 
 import (
+	"bufio"
 	"fmt"
 	"log"
 	"net/http"
@@ -17,7 +18,6 @@ var text = tview.NewTextView()
 var app = tview.NewApplication()
 
 func main() {
-
 	app.SetInputCapture(func(event *tcell.EventKey) *tcell.EventKey {
 		if event.Rune() == 'q' || event.Rune() == 'Q' {
 			app.Stop()
@@ -25,28 +25,27 @@ func main() {
 		return event
 	})
 
-	q := strings.Join(os.Args[1:], " ")
-	a := url.PathEscape(q)
+	text.SetDynamicColors(true).SetBorder(true).SetTitle("Press q to quit")
 
 	if len(os.Args) < 2 {
 		fmt.Println("Write a word:")
-		var b string
-		fmt.Scan(&b)
-		b = strings.Join(os.Args[1:], " ")
-		a := url.PathEscape(b)
+		reader := bufio.NewReader(os.Stdin)
+		b, _ := reader.ReadString('\n')
+		b = strings.TrimSpace(b)
 
-		text.SetText(vet(a)).SetDynamicColors(true).SetBorder(true).SetTitle("Press q to quit")
+		escapedInput := url.PathEscape(b)
+		text.SetText(vet(escapedInput))
 		app.SetRoot(text, true).Run()
 
 	} else if os.Args[1] == "--help" || os.Args[1] == "-h" {
 		help()
 
 	} else {
-		text.SetText(vet(a)).SetDynamicColors(true).SetBorder(true).SetTitle("Press q to quit")
+		joinedArgs := strings.Join(os.Args[1:], " ")
+		escapedInput := url.PathEscape(joinedArgs)
+		text.SetText(vet(escapedInput))
 		app.SetRoot(text, true).Run()
-
 	}
-
 }
 
 func vet(a string) string {
