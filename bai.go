@@ -42,7 +42,7 @@ func main() {
 		help()
 
 	} else {
-		text.SetText(vet(a)).SetDynamicColors(true)
+		text.SetText(vet(a)).SetDynamicColors(true).SetBorder(true).SetTitle("Press q to quit")
 		app.SetRoot(text, true).Run()
 
 	}
