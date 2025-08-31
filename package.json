@@ -1,0 +1,24 @@
+{
+  "name": "tureng-in-console",
+  "version": "1.0.0",
+  "description": "tureng cevirileri terminalde",
+  "homepage": "https://github.com/baturax/tureng-in-console#readme",
+  "bugs": {
+    "url": "https://github.com/baturax/tureng-in-console/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/baturax/tureng-in-console.git"
+  },
+  "license": "ISC",
+  "author": "",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "jsdom": "^26.1.0",
+    "node-fetch": "^3.3.2"
+  }
+}
