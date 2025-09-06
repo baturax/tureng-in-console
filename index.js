@@ -52,3 +52,6 @@ if (!term) {
 const results = await fetchTureng(term);
 console.log(results.join("\n"));
 
+process.stdin.setRawMode(true);
+process.stdin.resume();
+process.stdin.on("data", process.exit.bind(process, 0));
