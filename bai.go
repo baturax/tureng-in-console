@@ -49,12 +49,13 @@ func main() {
 }
 
 func vet(a string) string {
-	req, err := http.NewRequest("GET", "https://tureng.com/en/turkish-english/"+a, nil)
+	req, err := http.NewRequest("GET", "https://tureng.com/tr/turkce-ingilizce/"+a, nil)
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	req.Header.Set("User-Agent", "Mozilla/5.0")
+	req.Header.Set("User-Agent", "Mozilla/5.0 (X11; Linux x86_64; rv:128.0) Gecko/20100101 Firefox/128.0")
+	req.Header.Set("Cookie", "VFRVREM%3d=dHI%3d; VFRESUNUSU9OQVJZ=ZW50cg%3d%3d; dm=1; cf_clearance=Xbhjc38NMEhPnRu8n5jhSc4XwRSOVIHtcwSJAU8HE7w-1757759919-1.2.1.1-uGIoyrayLxPKoJBFQmXHqceHs16DfPCRaQfQ3yW5ThouLsy5sLD_VRyISgX.W5fTs0BBuIgPtTLQYNQp1UCVgIx6jmuDZV2uYmEvDnKgk0I1zuA2wLYDZiRwlWg1VGfenTrmKXPaM1nihwfvsMPobZ8VtuBvsHmQ.zHZlny3GdA39nbgcMf4VTCJdrDsZvAAcSih_lSK.fraiTOfIN_2JJWf6Vrq9SyTWMfIk_LJ4vM; THI=bai=638933639217142460")
 
 	client := &http.Client{}
 	res, err := client.Do(req)
